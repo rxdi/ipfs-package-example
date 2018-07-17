@@ -189,7 +189,7 @@ Lets take [simple server side example](https://github.com/rxdi/starter-server-si
 Inside `package.json` add the following configuration
 ```json
   "ipfs": {
-    "ipfsProvider": "https://ipfs.io/ipfs/",
+    "provider": "https://ipfs.io/ipfs/",
     "dependencies": [
       "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6"
     ]
@@ -198,7 +198,7 @@ Inside `package.json` add the following configuration
 
 where:
 
-`ipfsProvider` - This is public gateway from where we will download our modules you can try also with your private gateway http://127.0.0.1:8080/ipfs/
+`provider` - This is public gateway from where we will download our modules you can try also with your private gateway http://127.0.0.1:8080/ipfs/
 
 `dependencies` - This Array from hashes represents our modules with hash aka index.json which we deploy to ipfs network
 
@@ -213,11 +213,10 @@ where:
 
 Now we need to run our rxdi install command:
 
-For now this command is inside @rxdi/core to start it type following command from root of the project
-
 This will take configuration from package.json > ipfs and will download all modules representing Hashes inside `dependencies`
 See real world example: https://ipfs.io/ipfs/QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6
 
+Running from local node_modules installation
 ```bash
 node ./node_modules/@rxdi/core/bin/root.js install
 ```
@@ -231,7 +230,7 @@ or
 or Global
 
 ```bash
-npm install -g @rxdi/core
+npm i -g @rxdi/core
 ```
 
 Now you should have `rxdi install` command globally for all `rxdi` projects this will read `package.json` > "ipfs" object
@@ -250,7 +249,7 @@ You should see something like this:
 [
   {
     "hash": "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6",
-    "ipfsProvider": "https://ipfs.io/ipfs/"
+    "provider": "https://ipfs.io/ipfs/"
   }
 ]
 Modules installed!
@@ -259,9 +258,16 @@ Modules installed!
 
 If you want to install single dependency type:
 
+Short version it will default to `https://ipfs.io/ipfs/` provider
+```
+rxdi install QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6
+```
+
+Long version
 ```
 rxdi install --hash=QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6 --provider=https://ipfs.io/ipfs/
 ```
+
 
 ##### In Action
 

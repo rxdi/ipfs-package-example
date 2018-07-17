@@ -1,6 +1,6 @@
 {
   "name": "@rxdi/ipfs-package-example",
-  "version": "0.0.182",
+  "version": "0.0.183",
   "repository": {
     "type": "git",
     "url": "https://github.com/rxdi/ipfs-package-example.git"
@@ -39,7 +39,7 @@
     "typescript": "^2.7.1"
   },
   "ipfs": {
-    "ipfsProvider": "https://ipfs.io/ipfs/",
+    "provider": "https://ipfs.io/ipfs/",
     "dependencies": [
       "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6"
     ]
