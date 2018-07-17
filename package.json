@@ -1,0 +1,71 @@
+{
+  "name": "@rxdi/ipfs-package-example",
+  "version": "0.0.181",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxdi/ipfs-package-example.git"
+  },
+  "scripts": {
+    "postpublish": "git push -f ssh://git@gitlab.youvolio.com:522/rxdi/ipfs-package-example.git && git push --tags && git push ssh://git@gitlab.youvolio.com:522/rxdi/ipfs-package-example.git --tags",
+    "lint": "tslint -c tslint.json 'development/**/*.{ts,tsx}'",
+    "pretest": "npm run lint",
+    "test": "jest"
+  },
+  "author": {
+    "name": "Kristian Tachev(Stradivario)",
+    "email": "kristiqn.tachev@gmail.com"
+  },
+  "keywords": [
+    "graphql",
+    "gapi",
+    "node"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rxdi/ipfs-package-example/issues"
+  },
+  "homepage": "https://github.com/rxdi/ipfs-package-example#readme",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "peerDependencies": {
+    "@rxdi/core": "^0.0.179"
+  },
+  "devDependencies": {
+    "@rxdi/core": "^0.0.179",
+    "@rxdi/dts-merge": "0.0.179",
+    "@types/node": "^10.3.4",
+    "archiver": "^2.1.1",
+    "parcel-bundler": "^1.9.7",
+    "typescript": "^2.7.1"
+  },
+  "ipfs": {
+    "ipfsProvider": "https://ipfs.io/ipfs/",
+    "dependencies": [
+      "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "html"
+    ],
+    "rootDir": "./",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/development/.*\\.spec.(ts|tsx|js)$",
+    "verbose": true,
+    "collectCoverage": true
+  }
+}
