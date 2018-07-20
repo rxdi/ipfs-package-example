@@ -10,17 +10,11 @@ Installing dependencies:
 npm install
 ```
 
-Install @gapi/cli globally:
-```bash
-npm install @gapi/cli -g
-```
-
 Building module:
 
 ```bash
-gapi module build
+npm run build
 ```
-
 
 
 ##### Complete instructions can be found below.
@@ -34,7 +28,7 @@ npm i -g parcel-bundler
 
 Inside this repository `devDependencies`, `parce-bundler` is included
 
-Inside `gapi-cli.conf.yml` there is a command called `gapi module build`
+Inside `gapi-cli.conf.yml` there is a command called `gapi module build` or `npm run build`
 ```yml
 commands:
   testing:
@@ -42,14 +36,19 @@ commands:
     node: jest --env node --testPathPattern="/src/.*\\.spec.(ts|tsx|js)$"
   module:
     build:
-      - parcel build --target node development/index.ts
-      - rxdi-merge --name @test --project . --out dist/index.d.ts
+      - ./node_modules/.bin/parcel build --target node development/index.ts
+      - ./node_modules/.bin/rxdi-merge --name @test --project . --out dist/index.d.ts
       - find . -not -path "./node_modules/*" -type f -iname \*.map -delete
       - cp -r dist/* .
-      - gapi module clean
+      - ./node_modules/.bin/gapi module clean
     clean:
       - rm -rf dist
       - rm -rf .cache
+    deploy:
+      - jsipfs add index.js
+      - jsipfs add index.d.ts
+    deploy-config:
+      - jsipfs add index.json
 ```
 
 Lets take a closer look command by command

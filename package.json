@@ -9,6 +9,7 @@
     "postpublish": "git push -f ssh://git@gitlab.youvolio.com:522/rxdi/ipfs-package-example.git && git push --tags && git push ssh://git@gitlab.youvolio.com:522/rxdi/ipfs-package-example.git --tags",
     "lint": "tslint -c tslint.json 'development/**/*.{ts,tsx}'",
     "pretest": "npm run lint",
+    "build": "./node_modules/.bin/gapi module build",
     "test": "jest"
   },
   "author": {
@@ -31,6 +32,7 @@
     "@rxdi/core": "^0.0.186"
   },
   "devDependencies": {
+    "@gapi/cli": "^1.2.10",
     "@rxdi/core": "^0.0.186",
     "@rxdi/dts-merge": "^0.0.186",
     "@types/node": "^10.3.4",
