@@ -1,6 +1,6 @@
 {
   "name": "@rxdi/ipfs-package-example",
-  "version": "0.0.187",
+  "version": "0.0.203",
   "repository": {
     "type": "git",
     "url": "https://github.com/rxdi/ipfs-package-example.git"
@@ -10,6 +10,8 @@
     "lint": "tslint -c tslint.json 'development/**/*.{ts,tsx}'",
     "pretest": "npm run lint",
     "build": "./node_modules/.bin/gapi module build",
+    "deploy": "./node_modules/.bin/gapi module deploy",
+    "deploy-config": "./node_modules/.bin/gapi module deploy-config",
     "test": "jest"
   },
   "author": {

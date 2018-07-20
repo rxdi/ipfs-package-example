@@ -4,27 +4,89 @@
 > Reading above you will understand how to create and deploy your own module using ipfs network and rxdi infrastructure
 
 
-Installing dependencies:
+##### 1. Installing dependencies:
 
 ```bash
 npm install
 ```
 
-Building module:
+##### 2. Build module:
 
 ```bash
 npm run build
 ```
 
+Before we proceed install ipfs `npm i ipfs -g` and run daemon `jsipfs daemon`
 
-##### Complete instructions can be found below.
-
-(Optional)
-First we need to install ParcelJS Bundler globally
+##### 3. Deploy module:
 
 ```bash
-npm i -g parcel-bundler
+npm run deploy
 ```
+
+This will print something like this
+
+```bash
+added QmW1vAT4oy8w1iB8YoZMvmHoVF4GUHT1eE7h49UqViWawW index.d.ts
+added QmfCbYHggmJ5ZdnTRZ9X56iV6KR1REqxKmbX6GjspamH5w index.js
+```
+
+Add these hashes inside `index.json`
+
+JSON
+```json
+{
+    "name":"@test",
+    "typings": "QmW1vAT4oy8w1iB8YoZMvmHoVF4GUHT1eE7h49UqViWawW",
+    "module": "QmfCbYHggmJ5ZdnTRZ9X56iV6KR1REqxKmbX6GjspamH5w",
+    "dependencies": [""]
+}
+```
+
+##### 4. Deploy configuration for module `index.json`
+```bash
+npm run deploy-config
+```
+
+This will print our deployed module
+
+```bash
+added QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6 index.json
+```
+
+Install module inside @rxdi infrastructure:
+
+```bash
+rxdi install QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6
+```
+
+##### 4.1 Deploying html file with metadata for module (Optional):
+
+Purpose of this is to put documentation for current module and the same hash can be used to download module
+
+Instead creating `index.json` file create `index.html`
+
+When requesting this page rxdi will parse content between `<!--meta-rxdi-ipfs-module-->` meta tags
+
+
+```html
+<div style="visibility:hidden;z-index:-10000;position:absolute;">
+<!--meta-rxdi-ipfs-module-->
+{
+    "name":"@test",
+    "typings": "QmW1vAT4oy8w1iB8YoZMvmHoVF4GUHT1eE7h49UqViWawW",
+    "module": "QmfCbYHggmJ5ZdnTRZ9X56iV6KR1REqxKmbX6GjspamH5w",
+    "dependencies": [""]
+}
+<!--meta-rxdi-ipfs-module-->
+</div>
+```
+
+Example `index.html` module: [Link](http://127.0.0.1:8080/ipfs/QmeFUenbAy4kxKj6hA4kP662nwm11dGUTG8HZowBuapbFv)
+
+## Complete instructions can be found below.
+
+(Optional) Can be installed ParcelJS Bundler globally `npm i -g parcel-bundler`
 
 Inside this repository `devDependencies`, `parce-bundler` is included
 
@@ -74,6 +136,19 @@ Inside this repository `devDependencies` [@rxdi/dts-merge](https://github.com/rx
 rxdi-merge --name @test --project . --out dist/index.d.ts
 ```
 
+If you want to change exported namespace aka `@test` just pass different name inside parameter `--name @yourName` 
+Remember to change index.json file and redeploy your module.
+```json
+{
+    "name":"@yourName",
+    "typings": "hash",
+    "module": "hash",
+    "dependencies": [""]
+}
+
+```
+Then use new generated hash to install your module `rxdi i hash`
+
 #### Delete unused .map files
 This command will search for all *.map files inside your project generated from parcel and will delete it since we don't need them when module is builded for deployment
 ```bash
@@ -104,13 +179,14 @@ Now we need to deploy our module to ipfs network
 {
     "name":"@test",
     "typings": "QmW1vAT4oy8w1iB8YoZMvmHoVF4GUHT1eE7h49UqViWawW",
-    "module": "QmfCbYHggmJ5ZdnTRZ9X56iV6KR1REqxKmbX6GjspamH5w"
+    "module": "QmfCbYHggmJ5ZdnTRZ9X56iV6KR1REqxKmbX6GjspamH5w",
+    "dependencies": [""],
 }
 ```
 
 Where:
 
-`name` - Module namespace this is important since it will be downloaded inside node_modules as @test and inside node_modules/@types/@test
+`name` - Module namespace is important and in the end will be used as follow `import { TestModule } from '@test'` in this case
 
 `typings` - Hash from ipfs network leading to our generated types `index.d.ts`
 
@@ -120,7 +196,9 @@ Download folder: 'node_modules/@types/@test
 
 Download folder: 'node_modules/@test
 
-To use this typings you need to set `typeRoots` to `"node_modules/@types"` inside `tsconfig.json`
+`dependencies` - Every module can have many dependencies from the same type pass `hash` ['QmeFUenbAy4kxKj6hA4kP662nwm11dGUTG8HZowBuapbFv']
+
+To use typings you need to set `typeRoots` to `"node_modules/@types"` inside `tsconfig.json`
 
 The system will automatically download typings to @types folder
 ```json
@@ -187,12 +265,14 @@ Lets take [simple server side example](https://github.com/rxdi/starter-server-si
 
 Inside `package.json` add the following configuration
 ```json
-  "ipfs": {
-    "provider": "https://ipfs.io/ipfs/",
-    "dependencies": [
-      "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6"
-    ]
-  },
+  "ipfs": [
+    {
+      "provider": "https://ipfs.io/ipfs/",
+      "dependencies": [
+        "QmWtJLqyokMZE37DgncpY5HhFvtFQieBzMPDQ318aJeTw6"
+      ]
+    }
+  ],
 ```
 
 where:
