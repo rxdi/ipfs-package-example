@@ -31,12 +31,12 @@
   "module": "index.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@rxdi/core": "^0.0.208"
+    "@rxdi/core": "^0.0.210"
   },
   "devDependencies": {
     "@gapi/cli": "^1.2.10",
-    "@rxdi/core": "^0.0.208",
-    "@rxdi/dts-merge": "^0.0.208",
+    "@rxdi/core": "^0.0.210",
+    "@rxdi/dts-merge": "^0.0.210",
     "@types/node": "^10.3.4",
     "archiver": "^2.1.1",
     "parcel-bundler": "^1.9.7",
