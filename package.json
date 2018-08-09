@@ -30,9 +30,6 @@
   "homepage": "https://github.com/rxdi/ipfs-package-example#readme",
   "module": "index.js",
   "typings": "index.d.ts",
-  "peerDependencies": {
-    "@rxdi/core": "^0.0.214"
-  },
   "devDependencies": {
     "@gapi/cli": "^1.2.10",
     "@rxdi/core": "^0.0.214",
