@@ -1,6 +1,6 @@
 {
   "name": "@rxdi/ipfs-package-example",
-  "version": "0.5.16",
+  "version": "0.5.17",
   "repository": {
     "type": "git",
     "url": "https://github.com/rxdi/ipfs-package-example"
