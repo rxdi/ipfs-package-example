@@ -32,8 +32,8 @@
   "typings": "index.d.ts",
   "devDependencies": {
     "@gapi/cli": "^1.2.10",
-    "@rxdi/core": "^0.6.12",
-    "@rxdi/dts-merge": "^0.6.12",
+    "@rxdi/core": "^0.7.0",
+    "@rxdi/dts-merge": "^0.7.0",
     "@types/node": "^10.3.4",
     "archiver": "^2.1.1",
     "parcel-bundler": "^1.9.7",
